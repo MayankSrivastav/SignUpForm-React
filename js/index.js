@@ -36,3 +36,35 @@ var Modal = React.createClass({
       );
    }
 });
+
+ar App = React.createClass({
+   displayName: "App",
+
+   getInitialState: function getInitialState() {
+      return { mounted: false };
+   },
+
+   componentDidMount: function componentDidMount() {
+      this.setState({ mounted: true });
+   },
+
+   handleSubmit: function handleSubmit(e) {
+      this.setState({ mounted: false });
+      e.preventDefault();
+   },
+
+   render: function render() {
+      var child = undefined;
+      if (this.state.mounted) {
+         child = React.createElement(Modal, { onSubmit: this.handleSubmit });
+      }
+
+      return React.createElement(
+         "div",
+         { className: "App" },
+         child
+      );
+   }
+});
+
+ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
